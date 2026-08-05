@@ -1,0 +1,31 @@
+name: Validate organization governance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate JSON and required files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool repository-relationships.json >/dev/null
+          test -s README.md
+          test -s profile/README.md
+          test -s SECURITY.md
+          test -s CONTRIBUTING.md
+          test -s CODE_OF_CONDUCT.md
+          test -s AGENTS.md
+          test -s docs/OPERATING_MODEL.md
+          grep -Fq 'github.com/fanwaave' profile/README.md
+          grep -Fq 'linear.app/denman/project/githubcomfanwaave' docs/OPERATING_MODEL.md

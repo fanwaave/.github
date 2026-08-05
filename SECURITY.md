@@ -1,13 +1,7 @@
 # Security policy
 
-Do not publish exploit details, secrets, customer data, or private infrastructure information in a public issue. Use GitHub private vulnerability reporting when enabled, or contact an organization owner through a private authenticated channel. Include the affected repository and revision, impact, reproduction conditions, and a minimal remediation suggestion.
+Report suspected vulnerabilities privately through GitHub Security Advisories in the affected Fanwaave repository. Do not publish credentials, device tokens, push endpoints, private keys, API keys, phone numbers, email addresses, or exploit details in public issues.
 
-## Durable engineering policy
+Provider credentials are server-side configuration supplied through managed secret systems. Repository source, CI logs, project boards, Linear, and issue comments must not contain live credentials.
 
-- This repository defines public organization-wide defaults for `fanwaave`.
-- Never commit credentials, private keys, access tokens, customer data, or private-repository inventories.
-- Resolve Git conflicts semantically: inspect both sides, the merge base, nearby tests and contracts, and normally 3–10 relevant prior commits. Never blindly select all of `ours` or all of `theirs`.
-- Prefer focused pull requests, explicit validation, non-destructive Git operations, and documented tradeoffs.
-- Cross-repository integration uses versioned interfaces, APIs, SDKs, events, or explicitly owned replicated read models. Services do not reach into another service's database by default.
-- `*-infra` repositories and `*-monorepo` application source remain separate. A `*-infra` repository must never appear as a Git submodule under `*-monorepo/apps`.
-- Git submodules are reserved for explicitly coordinated editable source composition. Zed packages or immutable artifacts are preferred for package dependencies. Production deploys immutable artifacts or OCI digests, not source clones.
+Security fixes use private coordination until a patch, verification evidence, and disclosure plan are ready.

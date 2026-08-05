@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "github": {
+    "organization": "fanwaave",
+    "organization_id": 311152026,
+    "governance_repository": "fanwaave/.github",
+    "push_repository": "fanwaave/push-notification-server.rs"
+  },
+  "linear": {
+    "project_id": "d765e227-5726-42c8-8643-a8bd9e5a9a8c",
+    "project_name": "github.com/fanwaave",
+    "project_url": "https://linear.app/denman/project/githubcomfanwaave-6ba038b59dbc"
+  },
+  "github_project": {
+    "id": "PVT_kwDOEovNms4BfYhG",
+    "number": 1,
+    "title": "fanwaave-project",
+    "url": "https://github.com/orgs/fanwaave/projects/1"
+  },
+  "automatic_agent_instruction_inheritance": false,
+  "unregistered_dependencies": "unknown_not_assumed"
+}
