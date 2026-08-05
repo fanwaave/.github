@@ -74,10 +74,9 @@ jobs:
           grep -Fq '3–10' agents/semantic-conflict-resolver.md
           grep -Fq 'PVT_kwDOEovNms4BfYhG' repository-relationships.json
 
-          if grep -RInE '(gh[pousr]_|github_pat_|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' \
-            --exclude-dir=.git \
-            --exclude='*.lock' \
-            .; then
+          if git grep -nE \
+            '(gh[pousr]_|github_pat_|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' \
+            -- . ':(exclude).github/workflows/validate.yml'; then
             echo 'credential-like material found in public governance files' >&2
             exit 1
           fi
