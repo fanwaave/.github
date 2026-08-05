@@ -1,12 +1,15 @@
-# Contributing
+# Contributing to `fanwaave` repositories
 
-1. Start from the repository's current default branch.
-2. Create a focused feature branch.
-3. Preserve repository-local `AGENTS.md` and nested instructions.
-4. Add tests and documentation for behavior changes.
-5. Run the repository's formatting, lint, test, security, and build commands.
-6. Open a pull request describing scope, risk, validation, and rollout.
-7. Resolve conflicts semantically after reviewing the merge base and relevant history; do not select one side wholesale.
-8. Merge only the reviewed exact head after required checks pass.
+## Durable engineering policy
 
-Never commit secrets or production customer data.
+- This repository defines public organization-wide defaults for `fanwaave`.
+- Never commit credentials, private keys, access tokens, customer data, or private-repository inventories.
+- Resolve Git conflicts semantically: inspect both sides, the merge base, nearby tests and contracts, and normally 3–10 relevant prior commits. Never blindly select all of `ours` or all of `theirs`.
+- Prefer focused pull requests, explicit validation, non-destructive Git operations, and documented tradeoffs.
+- Cross-repository integration uses versioned interfaces, APIs, SDKs, events, or explicitly owned replicated read models. Services do not reach into another service's database by default.
+- `*-infra` repositories and `*-monorepo` application source remain separate. A `*-infra` repository must never appear as a Git submodule under `*-monorepo/apps`.
+- Git submodules are reserved for explicitly coordinated editable source composition. Zed packages or immutable artifacts are preferred for package dependencies. Production deploys immutable artifacts or OCI digests, not source clones.
+
+## Pull requests
+
+Keep pull requests focused and reviewable. Describe motivation, changed behavior, interface or migration impact, security considerations, validation performed, and rollback or compatibility plans where relevant.

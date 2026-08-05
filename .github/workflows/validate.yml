@@ -15,17 +15,69 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Validate JSON and required files
+
+      - name: Validate governance, routing, and policy files
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m json.tool repository-relationships.json >/dev/null
-          test -s README.md
-          test -s profile/README.md
-          test -s SECURITY.md
-          test -s CONTRIBUTING.md
-          test -s CODE_OF_CONDUCT.md
-          test -s AGENTS.md
-          test -s docs/OPERATING_MODEL.md
-          grep -Fq 'github.com/fanwaave' profile/README.md
-          grep -Fq 'linear.app/denman/project/githubcomfanwaave' docs/OPERATING_MODEL.md
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          relationships = json.loads(Path("repository-relationships.json").read_text())
+          assert relationships["schema_version"] == 1
+          assert relationships["github"]["organization"] == "fanwaave"
+          assert relationships["github"]["organization_id"] == 311152026
+          assert relationships["github"]["governance_repository"] == "fanwaave/.github"
+          assert relationships["github"]["push_repository"] == "fanwaave/push-notification-server.rs"
+          assert relationships["linear"]["project_id"] == "d765e227-5726-42c8-8643-a8bd9e5a9a8c"
+          assert relationships["github_project"]["id"] == "PVT_kwDOEovNms4BfYhG"
+          assert relationships["github_project"]["number"] == 1
+          assert relationships["github_project"]["title"] == "fanwaave-project"
+          assert relationships["automatic_agent_instruction_inheritance"] is False
+          assert relationships["unregistered_dependencies"] == "unknown_not_assumed"
+          PY
+
+          required_files=(
+            README.md
+            profile/README.md
+            AGENTS.md
+            agents.md
+            BRANCHING_AND_DEPLOYMENT.md
+            CODE_OF_CONDUCT.md
+            CONTRIBUTING.md
+            GOVERNANCE.md
+            PULL_REQUEST_TEMPLATE.md
+            REPOSITORY_BOUNDARIES.md
+            SECURITY.md
+            SUPPORT.md
+            agents/semantic-conflict-resolver.md
+            docs/ORGANIZATION_HANDBOOK.md
+            docs/PROJECTS.md
+            docs/OPERATING_MODEL.md
+            organization-policy.json
+            repository-relationships.json
+          )
+          for path in "${required_files[@]}"; do
+            test -s "$path"
+          done
+
+          cmp AGENTS.md agents.md
+          grep -Fq 'github.com/fanwaave/push-notification-server.rs' profile/README.md
+          grep -Fq 'github.com/orgs/fanwaave/projects/1' profile/README.md
+          grep -Fq 'linear.app/denman/project/githubcomfanwaave' profile/README.md
+          grep -Fq '<!-- org-project-routing:start -->' profile/README.md
+          grep -Fq '<!-- org-project-routing:end -->' profile/README.md
+          grep -Fq 'BRANCHING_AND_DEPLOYMENT.md' AGENTS.md
+          grep -Fq '*-infra' REPOSITORY_BOUNDARIES.md
+          grep -Fq '3–10' agents/semantic-conflict-resolver.md
+          grep -Fq 'PVT_kwDOEovNms4BfYhG' repository-relationships.json
+
+          if grep -RInE '(gh[pousr]_|github_pat_|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' \
+            --exclude-dir=.git \
+            --exclude='*.lock' \
+            .; then
+            echo 'credential-like material found in public governance files' >&2
+            exit 1
+          fi

@@ -1,7 +1,3 @@
-# Community conduct
+# Code of conduct
 
-Fanwaave collaboration must be respectful, constructive, and safe. Harassment, threats, discrimination, doxxing, credential exposure, and deliberate disruption are not acceptable.
-
-Discuss technical disagreements with evidence and focus criticism on designs and changes rather than people. Maintainers may edit, hide, lock, or remove content and restrict participation when needed to protect contributors and users.
-
-Report conduct concerns privately to organization maintainers.
+Participants in `fanwaave` repositories are expected to communicate respectfully, critique ideas rather than people, protect private information, and make technical disagreements evidence-driven and actionable. Harassment, threats, discrimination, doxxing, credential disclosure, and deliberate disruption are not acceptable.
