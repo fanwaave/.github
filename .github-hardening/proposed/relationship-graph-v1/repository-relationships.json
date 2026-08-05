@@ -1,0 +1,89 @@
+{
+  "$schema": "./repository-relationships.schema.json",
+  "audience": "public",
+  "generated": {
+    "complete_for_visibility": "public",
+    "generated_at": "2026-08-05T23:41:16Z",
+    "generator_version": "2026-08-04.1",
+    "inventory_digest": "sha256:1b98570c7b6b67c1093610168e3d631c4c69cde2ec8bb266aa6ecb6192d65212",
+    "managed_by": "ore-repository-relationship-rollout",
+    "omitted_repository_count": 0,
+    "private_repositories_omitted": false,
+    "source": "GitHub GraphQL repository inventory plus reviewed manual declarations"
+  },
+  "owner": {
+    "account_type": "organization",
+    "dotgithub_repository": "fanwaave/.github",
+    "github_id": "311152026",
+    "linear_project": {
+      "id": "d765e227-5726-42c8-8643-a8bd9e5a9a8c",
+      "name": "github.com/fanwaave",
+      "team_id": "eb8ab169-5afe-4b6f-9cab-3f2aa3e887dc",
+      "url": "https://linear.app/denman/project/githubcomfanwaave-6ba038b59dbc",
+      "workspace": "denman"
+    },
+    "login": "fanwaave",
+    "mapping_id": "context:fanwaave"
+  },
+  "private_registry": {
+    "contains_non_public_inventory": false,
+    "digest": "sha256:477ac7b5c55b7b4f9a4b98c965081c546f6fb818fba9cd0619c0e8e1c008f89d",
+    "path": "owners/fanwaave.json",
+    "repository": "approved-private-registry"
+  },
+  "relationships": [
+    {
+      "confidence": 1.0,
+      "evidence": [
+        {
+          "kind": "github-owner-membership",
+          "source": "GitHub GraphQL repository inventory"
+        }
+      ],
+      "from": "fanwaave/.github",
+      "id": "sha256:69fdec2e304622c37876fb5dce0634f4efc58b8b420102471c39342d5f5e370a",
+      "notes": "Organization .github policy and community-health defaults govern this sibling repository.",
+      "required": true,
+      "scope": "organization",
+      "status": "declared",
+      "to": "fanwaave/push-notification-server.rs",
+      "type": "governs"
+    }
+  ],
+  "repositories": [
+    {
+      "archived": false,
+      "default_branch": "main",
+      "fork": false,
+      "full_name": "fanwaave/.github",
+      "github_id": "1324266684",
+      "name": ".github",
+      "owner": "fanwaave",
+      "roles": [
+        "community-health",
+        "governance",
+        "relationship-registry"
+      ],
+      "source": "github-graphql-api",
+      "url": "https://github.com/fanwaave/.github",
+      "visibility": "public"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "fork": false,
+      "full_name": "fanwaave/push-notification-server.rs",
+      "github_id": "1324425321",
+      "name": "push-notification-server.rs",
+      "owner": "fanwaave",
+      "roles": [
+        "repository"
+      ],
+      "source": "github-graphql-api",
+      "url": "https://github.com/fanwaave/push-notification-server.rs",
+      "visibility": "public"
+    }
+  ],
+  "schema_version": 1,
+  "unresolved_hints": []
+}
