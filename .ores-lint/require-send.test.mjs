@@ -58,10 +58,16 @@ const cases = [
     count: 0,
   },
   {
-    name: 'gleam reports an undelivered logging call',
+    name: 'gleam reports an undelivered non-tail logging call',
+    language: 'gleam',
+    source: 'pub fn f() { logging.info("hello")\n Nil }',
+    count: 1,
+  },
+  {
+    name: 'gleam accepts a tail handoff',
     language: 'gleam',
     source: 'pub fn f() { logging.info("hello") }',
-    count: 1,
+    count: 0,
   },
   {
     name: 'gleam accepts an inline send pipeline',
