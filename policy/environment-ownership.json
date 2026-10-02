@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "ciphertext_paths": ["env/enc/dev.env.enc", "env/enc/prod.env.enc"],
+  "plaintext_root": "env/dec",
+  "production_source_of_truth": "protected deployment secret store",
+  "repositories": {
+    "push-notification-server.rs": "communications-provider-runtime",
+    ".github": "no-secrets"
+  },
+  "boundaries": {
+    "general_communications": "fanwaave/push-notification-server.rs",
+    "authentication_communications": "shared-auth/shared-auth-server.rs"
+  }
+}
