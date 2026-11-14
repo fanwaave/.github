@@ -1,33 +1,44 @@
 # Fanwaave feature-branch governance reconciliation
 
-Status: **requires maintainer decision**. Reviewed: 2026-11-14.
+Status: **integration branches provisioned; protection controls unverified**.
+Reviewed: 2026-11-14.
 Audience: repository maintainers, release engineering, and code-review agents.
 
-The canonical `organization-policy.json` declares the `dev` integration
-branch and directs feature PRs to `dev`. This declaration does **not**
-provision a `dev` branch in each repository.
+The canonical `organization-policy.json` declares `dev` as the integration
+branch and directs feature PRs to `dev`. Simply declaring this contract
+does not create the branch or configure branch protection.
 
-## Verified discrepancy
+## Reconciliation performed
 
-At review time, sampled repositories including `.github`, `fanwaave-cli`,
-`fanwaave-infra`, `fanwaave-monorepo`, `fanwaave-sync`,
-`fanwaave-desktop-app.rs`, `fanwaave-clients`,
-`fanwaave-docs`, `fanwaave-mcp-server.rs`,
-`fanwaave-admin-api-server.rs`, and `fanwaave-assets`
-did not expose `refs/heads/dev`. `fanwaave-flutter` did.
+At the beginning of this audit, most of Fanwaave's 24 repositories lacked
+`refs/heads/dev`; `fanwaave-flutter` already had `dev` but its history
+diverged from `main`. In the user-authorized rollout, 23 missing `dev`
+branches were created from each repository's `main`, without modifying or
+merging production branches. All 24 new rollout draft PRs now target `dev`.
+Flutter received a fresh dev-based, one-test-file draft rather than importing
+unrelated main-branch history.
 
-## Safe promotion process
+**Still outstanding:** creation of `dev` branches is not proof of protection.
+The GitHub integration cannot read the branch-protection endpoint (403:
+resource inaccessible by integration), and the inspected
+`fanwaave-clients` repository returned no repository-level rulesets.
+It is not safe to assume approval counts, required checks, or force-push
+restrictions are enforced on the newly created branches.
 
-1. Inventory branch heads and protected/ruleset requirements for every
-   repository. Verify live GitHub branch state; this document is a dated snapshot.
-2. A maintainer must explicitly choose to provision `dev` per repository or
-   revise `organization-policy.json` through its governed change process.
-3. Do not silently target `main` just because `dev` is absent. Existing
-   main-targeted drafts must be triaged and reconciled before promotion.
-4. Require passing exact-head CI, security/dependency gates, and applicable
-   approvals. A Git-level mergeable status alone is not evidence of readiness.
-5. Do not force-update protected branches, skip required checks, or reinterpret
-   an unavailable private dependency as a passing test.
-6. Record the approved target branch and commit SHA for each promoted PR.
+## Required maintainer promotion gate
 
-This is a documented policy gap, **not** permission to bypass GitFlow or GitOps.
+1. Check each `dev` branch's protection/rulesets with an authorized
+   administrator. Configure required checks, reviews, and restrictions.
+2. Confirm each draft PR changes only its intended files relative to `dev`.
+   Revalidate exact head SHA after any push or base retarget.
+3. Require passing exact-head CI, security/dependency gates, and applicable
+   approvals. A Git-level mergeable status is insufficient.
+4. Do not promote while private-dependency authentication, vulnerability
+   advisories, missing contract authorities or Gitlink integrity remain
+   unresolved.
+5. Only merge to `dev` after all gates; follow the documented high-confidence
+   integration-to-production GitOps promotion separately.
+6. Record approved branch, head SHA, checks and reviewers for each merge.
+
+This documents an integration-branch rollout, **not** an attestation that
+the branch protections, integration tests or production delivery gates pass.
