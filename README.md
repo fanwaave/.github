@@ -14,6 +14,7 @@ This repository preserves Fanwaave's durable engineering, repository-boundary, G
 Start with:
 
 - [`BRANCHING_AND_DEPLOYMENT.md`](BRANCHING_AND_DEPLOYMENT.md)
+- [Feature-branch policy reconciliation](docs/BRANCH_POLICY_RECONCILIATION.md)
 - [`GOVERNANCE.md`](GOVERNANCE.md)
 - [`REPOSITORY_BOUNDARIES.md`](REPOSITORY_BOUNDARIES.md)
 - [`CONTRIBUTING.md`](CONTRIBUTING.md)
