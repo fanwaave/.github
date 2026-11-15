@@ -1,5 +1,7 @@
 # .github
 
+**Scripting policy:** [Use Rust instead of Python scripts](CONTRIBUTING.md#rust-first-scripts-and-automation); special-case Python application code requires documentation.
+
 Organization-wide GitHub, branching, agent, and delivery policy for Fanwaave.
 
 ## Canonical systems
