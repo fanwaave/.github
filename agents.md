@@ -127,3 +127,13 @@ work in progress, and `-A` is how that — plus secrets — gets committed by ac
 
 Never report work as landed while it is only on local disk. A change is done when
 it is committed, pushed, and open as a pull request; compiling is not landing.
+
+## Rust-first automation, scripts, and test policy
+
+**Use Rust, not Python, for newly authored repository scripts, test harnesses, CI checks, contract verifiers, code generation, migration tooling, and maintenance automation.** Prefer standard-library Rust where practical; otherwise maintain a documented Cargo crate with locked dependencies. Run `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test --all-targets`, and real runtime/conformance checks appropriate to the component.
+
+Do not introduce new `.py` test/CI scripts or invoke `python` / `python3` in newly authored workflows. Inventory and port existing Python automation incrementally into Rust with positive/negative parity tests before changing or deleting existing callers. Never disable a gate, drop coverage, fabricate passing results, or replace executable tests with source-text-only checks to accomplish a migration.
+
+If a Python **product application** truly requires Python, record a narrow exception identifying the app, owner, justification, allowed files, tests and review criteria. This exception does **not** permit Python for CI/test tooling. Other language SDKs may of course contain language-native product code and tests where necessary; Rust remains the default for shared orchestration and cross-language contract testing.
+
+These instructions are organization guidance: publish or synchronize compatible repository-local instructions and workflows separately. The GitHub `.github` repository alone does not enforce the rule in every sibling repository.
